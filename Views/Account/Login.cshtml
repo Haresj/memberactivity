@@ -1,0 +1,15 @@
+@{
+    ViewData["Title"] = "Sign in";
+    var returnUrl = ViewData["ReturnUrl"] as string;
+}
+
+<section class="card auth-card">
+    <h1>Sign in</h1>
+    <p>Use Google through Keycloak Identity Brokering.</p>
+
+    <form asp-controller="Account" asp-action="ExternalLogin" method="post">
+        @Html.AntiForgeryToken()
+        <input type="hidden" name="returnUrl" value="@returnUrl" />
+        <button type="submit" class="google-btn">Sign in with Google</button>
+    </form>
+</section>
