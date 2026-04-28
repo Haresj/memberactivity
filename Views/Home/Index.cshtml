@@ -15,8 +15,7 @@
       --radius: 14px;
       --shadow: 0 10px 25px rgba(0, 0, 0, .08);
       --text: #0f172a;
-      --muted: #64748b;
-      --line: #e2e8f0;
+      --line: #dbe3f0;
     }
 
     body {
@@ -26,10 +25,31 @@
       color: var(--text);
     }
 
-    .page-wrap {
-      min-height: 100vh;
-      padding: 24px;
+    .visually-hidden-focusable:not(:focus):not(:focus-within) {
+      position: absolute !important;
+      width: 1px;
+      height: 1px;
+      padding: 0;
+      margin: -1px;
+      overflow: hidden;
+      clip: rect(0, 0, 0, 0);
+      white-space: nowrap;
+      border: 0;
     }
+
+    .skip-link {
+      position: absolute;
+      left: 10px;
+      top: 10px;
+      z-index: 9999;
+      background: #0f172a;
+      color: #fff;
+      border-radius: 10px;
+      padding: 8px 12px;
+      text-decoration: none;
+    }
+
+    .page-wrap { min-height: 100vh; padding: 24px; }
 
     .app-shell {
       max-width: 1350px;
@@ -47,17 +67,8 @@
       border: 1px solid rgba(148, 163, 184, .18);
     }
 
-    .sidebar {
-      position: sticky;
-      top: 20px;
-      padding: 18px;
-    }
-
-    .brand {
-      font-weight: 700;
-      font-size: 1.15rem;
-      margin-bottom: 16px;
-    }
+    .sidebar { position: sticky; top: 20px; padding: 18px; }
+    .brand { font-weight: 700; font-size: 1.15rem; margin-bottom: 16px; }
 
     .tab-btn {
       width: 100%;
@@ -72,58 +83,24 @@
       transition: .2s ease;
     }
 
-    .tab-btn:hover {
-      background: #eff6ff;
-      color: var(--primary);
-    }
+    .tab-btn:hover,
+    .tab-btn:focus-visible { background: #eff6ff; color: var(--primary); outline: 2px solid transparent; }
 
     .tab-btn.active {
       background: var(--primary);
-      color: white;
+      color: #fff;
       box-shadow: 0 8px 16px rgba(37, 99, 235, .22);
     }
 
-    .content-panel {
-      padding: 18px;
-      padding-bottom: 110px;
-    }
+    .content-panel { padding: 18px; padding-bottom: 110px; }
+    .section { display: none; animation: fadeIn .25s ease; }
+    .section.active { display: block; }
 
-    .section {
-      display: none;
-      animation: fadeIn .28s ease;
-    }
+    @@keyframes fadeIn { from { opacity: 0; transform: translateY(8px); } to { opacity: 1; transform: translateY(0); } }
 
-    .section.active {
-      display: block;
-    }
-
-    @@keyframes fadeIn {
-      from {
-        opacity: 0;
-        transform: translateY(8px);
-      }
-      to {
-        opacity: 1;
-        transform: translateY(0);
-      }
-    }
-
-    .section-card {
-      padding: 20px;
-      margin-bottom: 16px;
-    }
-
-    .section-title {
-      font-size: 1.1rem;
-      font-weight: 700;
-      margin-bottom: 16px;
-    }
-
-    .form-label {
-      font-weight: 600;
-      color: #334155;
-      font-size: .9rem;
-    }
+    .section-card { padding: 20px; margin-bottom: 16px; }
+    .section-title { font-size: 1.1rem; font-weight: 700; margin-bottom: 16px; }
+    .form-label { font-weight: 600; color: #334155; font-size: .9rem; }
 
     .form-control,
     .form-select {
@@ -133,9 +110,11 @@
     }
 
     .form-control:focus,
-    .form-select:focus {
+    .form-select:focus,
+    .btn:focus-visible {
       border-color: #93c5fd;
-      box-shadow: 0 0 0 .22rem rgba(37, 99, 235, .14);
+      box-shadow: 0 0 0 .22rem rgba(37, 99, 235, .2);
+      outline: none;
     }
 
     .avatar-upload {
@@ -155,9 +134,9 @@
       border-radius: 10px;
       padding: 8px;
       display: flex;
-      align-items: center;
       flex-wrap: wrap;
       gap: 8px;
+      align-items: center;
       background: #fff;
     }
 
@@ -173,22 +152,8 @@
       gap: 7px;
     }
 
-    .chip button {
-      border: 0;
-      background: transparent;
-      color: #1e3a8a;
-      font-size: 1rem;
-      line-height: 1;
-      padding: 0;
-    }
-
-    .repeat-card {
-      border: 1px dashed #bfdbfe;
-      border-radius: 12px;
-      padding: 14px;
-      margin-bottom: 12px;
-      background: #f8fbff;
-    }
+    .chip button { border: 0; background: transparent; color: #1e3a8a; font-size: 1rem; line-height: 1; padding: 0; }
+    .repeat-card { border: 1px dashed #bfdbfe; border-radius: 12px; padding: 14px; margin-bottom: 12px; background: #f8fbff; }
 
     .sticky-actions {
       position: fixed;
@@ -196,7 +161,7 @@
       right: 0;
       bottom: 0;
       z-index: 1050;
-      background: rgba(255, 255, 255, .94);
+      background: rgba(255, 255, 255, .95);
       backdrop-filter: blur(6px);
       border-top: 1px solid #e2e8f0;
       padding: 10px 16px;
@@ -211,38 +176,16 @@
       justify-content: flex-end;
     }
 
-    .btn-modern {
-      border-radius: 10px;
-      font-weight: 600;
-      padding: .58rem 1rem;
-    }
+    .btn-modern { border-radius: 10px; font-weight: 600; padding: .58rem 1rem; }
+    .required-mark { color: #b91c1c; margin-left: 2px; }
 
     @@media (max-width: 992px) {
-      .app-shell {
-        grid-template-columns: 1fr;
-      }
-
-      .sidebar {
-        position: static;
-      }
-
-      .tabs-grid {
-        display: grid;
-        grid-template-columns: repeat(2, minmax(0, 1fr));
-        gap: 8px;
-      }
-
-      .tab-btn {
-        margin-bottom: 0;
-      }
-
-      .content-panel {
-        padding-bottom: 130px;
-      }
-
-      .sticky-actions .inner {
-        justify-content: center;
-      }
+      .app-shell { grid-template-columns: 1fr; }
+      .sidebar { position: static; }
+      .tabs-grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 8px; }
+      .tab-btn { margin-bottom: 0; }
+      .content-panel { padding-bottom: 130px; }
+      .sticky-actions .inner { justify-content: center; }
     }
 
     @@media (max-width: 576px) {
@@ -253,116 +196,123 @@
   </style>
 </head>
 <body>
+  <a class="skip-link visually-hidden-focusable" href="#mainContent">Skip to form content</a>
   <div class="page-wrap">
     <div class="app-shell">
-      <aside class="sidebar card-ui">
-        <div class="brand">Job Seeker Profile</div>
-        <div class="tabs-grid">
-          <button class="tab-btn active" onclick="openTab(event,'tab1')">Basic Info</button>
-          <button class="tab-btn" onclick="openTab(event,'tab2')">Job Preference</button>
-          <button class="tab-btn" onclick="openTab(event,'tab3')">Resume</button>
-          <button class="tab-btn" onclick="openTab(event,'tab4')">Skills</button>
-          <button class="tab-btn" onclick="openTab(event,'tab5')">Education</button>
-          <button class="tab-btn" onclick="openTab(event,'tab6')">Experience</button>
-          <button class="tab-btn" onclick="openTab(event,'tab7')">Certificates</button>
-          <button class="tab-btn" onclick="openTab(event,'tab8')">Portfolio</button>
-        </div>
+      <aside class="sidebar card-ui" aria-label="Profile sections navigation">
+        <div class="brand" id="profileTitle">Job Seeker Profile</div>
+        <nav class="tabs-grid" role="tablist" aria-labelledby="profileTitle" aria-orientation="vertical">
+          <button id="btn-tab1" class="tab-btn active" role="tab" aria-selected="true" aria-controls="tab1" tabindex="0" onclick="openTab(event,'tab1')">Basic Info</button>
+          <button id="btn-tab2" class="tab-btn" role="tab" aria-selected="false" aria-controls="tab2" tabindex="-1" onclick="openTab(event,'tab2')">Job Preference</button>
+          <button id="btn-tab3" class="tab-btn" role="tab" aria-selected="false" aria-controls="tab3" tabindex="-1" onclick="openTab(event,'tab3')">Resume</button>
+          <button id="btn-tab4" class="tab-btn" role="tab" aria-selected="false" aria-controls="tab4" tabindex="-1" onclick="openTab(event,'tab4')">Skills</button>
+          <button id="btn-tab5" class="tab-btn" role="tab" aria-selected="false" aria-controls="tab5" tabindex="-1" onclick="openTab(event,'tab5')">Education</button>
+          <button id="btn-tab6" class="tab-btn" role="tab" aria-selected="false" aria-controls="tab6" tabindex="-1" onclick="openTab(event,'tab6')">Experience</button>
+          <button id="btn-tab7" class="tab-btn" role="tab" aria-selected="false" aria-controls="tab7" tabindex="-1" onclick="openTab(event,'tab7')">Certificates</button>
+          <button id="btn-tab8" class="tab-btn" role="tab" aria-selected="false" aria-controls="tab8" tabindex="-1" onclick="openTab(event,'tab8')">Portfolio</button>
+        </nav>
       </aside>
 
-      <main class="content-panel card-ui">
+      <main id="mainContent" class="content-panel card-ui" aria-live="polite">
+        <div id="formFeedback" class="alert alert-danger d-none" role="alert"></div>
         <form id="profileForm" novalidate>
-          <section class="section active" id="tab1">
+          <section class="section active" id="tab1" role="tabpanel" aria-labelledby="btn-tab1">
             <div class="section-card">
               <h2 class="section-title">Basic Info</h2>
-              <img src="https://cdn-icons-png.flaticon.com/512/149/149071.png" class="avatar-upload" id="avatarPreview" alt="Profile Photo" />
+              <img src="https://cdn-icons-png.flaticon.com/512/149/149071.png" class="avatar-upload" id="avatarPreview" alt="Profile photo preview" />
               <div class="row g-3">
-                <div class="col-md-6"><label class="form-label">First Name *</label><input required type="text" class="form-control" name="first_name"></div>
-                <div class="col-md-6"><label class="form-label">Last Name *</label><input required type="text" class="form-control" name="last_name"></div>
-                <div class="col-md-6"><label class="form-label">Email *</label><input required type="email" class="form-control" name="email"></div>
-                <div class="col-md-6"><label class="form-label">Phone *</label><input required type="tel" class="form-control" name="phone"></div>
-                <div class="col-md-4"><label class="form-label">Country *</label><input required type="text" class="form-control" name="country"></div>
-                <div class="col-md-4"><label class="form-label">State *</label><input required type="text" class="form-control" name="state"></div>
-                <div class="col-md-4"><label class="form-label">City *</label><input required type="text" class="form-control" name="city"></div>
-                <div class="col-12"><label class="form-label">Upload Profile Photo</label><input type="file" class="form-control" id="profilePhoto" accept="image/*"></div>
+                <div class="col-md-6"><label class="form-label" for="firstName">First Name <span class="required-mark">*</span></label><input id="firstName" required aria-required="true" type="text" class="form-control" name="first_name" autocomplete="given-name"></div>
+                <div class="col-md-6"><label class="form-label" for="lastName">Last Name <span class="required-mark">*</span></label><input id="lastName" required aria-required="true" type="text" class="form-control" name="last_name" autocomplete="family-name"></div>
+                <div class="col-md-6"><label class="form-label" for="email">Email <span class="required-mark">*</span></label><input id="email" required aria-required="true" type="email" class="form-control" name="email" autocomplete="email"></div>
+                <div class="col-md-6"><label class="form-label" for="phone">Phone <span class="required-mark">*</span></label><input id="phone" required aria-required="true" type="tel" class="form-control" name="phone" autocomplete="tel"></div>
+                <div class="col-md-4"><label class="form-label" for="country">Country <span class="required-mark">*</span></label><input id="country" required aria-required="true" type="text" class="form-control" name="country" autocomplete="country-name"></div>
+                <div class="col-md-4"><label class="form-label" for="state">State <span class="required-mark">*</span></label><input id="state" required aria-required="true" type="text" class="form-control" name="state" autocomplete="address-level1"></div>
+                <div class="col-md-4"><label class="form-label" for="city">City <span class="required-mark">*</span></label><input id="city" required aria-required="true" type="text" class="form-control" name="city" autocomplete="address-level2"></div>
+                <div class="col-12"><label class="form-label" for="profilePhoto">Upload Profile Photo</label><input id="profilePhoto" type="file" class="form-control" accept="image/*" aria-describedby="photoHint"><small id="photoHint" class="text-muted">Accepted image formats only.</small></div>
               </div>
             </div>
           </section>
 
-          <section class="section" id="tab2">
+          <section class="section" id="tab2" role="tabpanel" aria-labelledby="btn-tab2" hidden>
             <div class="section-card">
               <h2 class="section-title">Job Preference</h2>
               <div class="row g-3">
-                <div class="col-md-6"><label class="form-label">Preferred Role *</label><input required type="text" class="form-control"></div>
-                <div class="col-md-6"><label class="form-label">Industry *</label><input required type="text" class="form-control"></div>
-                <div class="col-md-4"><label class="form-label">Experience *</label><input required type="text" class="form-control" placeholder="e.g. 4 years"></div>
-                <div class="col-md-4"><label class="form-label">Work Mode *</label><select required class="form-select"><option value="">Choose</option><option>Remote</option><option>Hybrid</option><option>Office</option></select></div>
-                <div class="col-md-4"><label class="form-label">Expected Salary *</label><input required type="number" class="form-control" placeholder="USD"></div>
-                <div class="col-md-6"><label class="form-label">Notice Period *</label><input required type="text" class="form-control" placeholder="e.g. 30 Days"></div>
+                <div class="col-md-6"><label class="form-label" for="preferredRole">Preferred Role <span class="required-mark">*</span></label><input id="preferredRole" required aria-required="true" type="text" class="form-control"></div>
+                <div class="col-md-6"><label class="form-label" for="industry">Industry <span class="required-mark">*</span></label><input id="industry" required aria-required="true" type="text" class="form-control"></div>
+                <div class="col-md-4"><label class="form-label" for="experienceYears">Experience <span class="required-mark">*</span></label><input id="experienceYears" required aria-required="true" type="text" class="form-control" placeholder="e.g. 4 years"></div>
+                <div class="col-md-4"><label class="form-label" for="workMode">Work Mode <span class="required-mark">*</span></label><select id="workMode" required aria-required="true" class="form-select"><option value="">Choose</option><option>Remote</option><option>Hybrid</option><option>Office</option></select></div>
+                <div class="col-md-4"><label class="form-label" for="salary">Expected Salary <span class="required-mark">*</span></label><input id="salary" required aria-required="true" type="number" class="form-control" placeholder="USD"></div>
+                <div class="col-md-6"><label class="form-label" for="noticePeriod">Notice Period <span class="required-mark">*</span></label><input id="noticePeriod" required aria-required="true" type="text" class="form-control" placeholder="e.g. 30 Days"></div>
               </div>
             </div>
           </section>
 
-          <section class="section" id="tab3">
+          <section class="section" id="tab3" role="tabpanel" aria-labelledby="btn-tab3" hidden>
             <div class="section-card">
               <h2 class="section-title">Resume</h2>
               <div class="row g-3">
-                <div class="col-12"><label class="form-label">Upload Resume *</label><input required type="file" class="form-control" accept=".pdf,.doc,.docx"></div>
-                <div class="col-12"><label class="form-label">Resume Headline *</label><input required type="text" class="form-control" placeholder="Senior Frontend Developer"></div>
-                <div class="col-12"><label class="form-label">Professional Summary *</label><textarea required class="form-control" rows="6"></textarea></div>
+                <div class="col-12"><label class="form-label" for="resumeFile">Upload Resume <span class="required-mark">*</span></label><input id="resumeFile" required aria-required="true" type="file" class="form-control" accept=".pdf,.doc,.docx"></div>
+                <div class="col-12"><label class="form-label" for="resumeHeadline">Resume Headline <span class="required-mark">*</span></label><input id="resumeHeadline" required aria-required="true" type="text" class="form-control" placeholder="Senior Frontend Developer"></div>
+                <div class="col-12"><label class="form-label" for="professionalSummary">Professional Summary <span class="required-mark">*</span></label><textarea id="professionalSummary" required aria-required="true" class="form-control" rows="6"></textarea></div>
               </div>
             </div>
           </section>
 
-          <section class="section" id="tab4">
+          <section class="section" id="tab4" role="tabpanel" aria-labelledby="btn-tab4" hidden>
             <div class="section-card">
               <h2 class="section-title">Skills</h2>
               <div class="row g-3">
-                <div class="col-md-8"><label class="form-label">Skill Tag Input</label><input type="text" id="skillInput" class="form-control" placeholder="Type a skill and press Enter"></div>
+                <div class="col-md-8"><label class="form-label" for="skillInput">Skill Tag Input</label><input type="text" id="skillInput" class="form-control" placeholder="Type a skill and press Enter" aria-describedby="skillHelp"></div>
                 <div class="col-md-4 d-grid"><label class="form-label d-none d-md-block">&nbsp;</label><button type="button" class="btn btn-primary btn-modern" id="addSkillBtn">Add Skill</button></div>
-                <div class="col-12"><label class="form-label">Your Skills *</label><div class="chip-wrap" id="skillsContainer"></div><input type="hidden" id="skillsRequired" required></div>
+                <small id="skillHelp" class="text-muted">Use Enter key or Add Skill button to create tags.</small>
+                <div class="col-12">
+                  <label class="form-label" for="skillsRequired">Your Skills <span class="required-mark">*</span></label>
+                  <div class="chip-wrap" id="skillsContainer" role="list" aria-label="Added skill tags"></div>
+                  <input type="text" id="skillsRequired" required aria-required="true" class="visually-hidden" aria-hidden="true" tabindex="-1">
+                </div>
               </div>
             </div>
           </section>
 
-          <section class="section" id="tab5">
+          <section class="section" id="tab5" role="tabpanel" aria-labelledby="btn-tab5" hidden>
             <div class="section-card">
               <div class="d-flex justify-content-between align-items-center mb-3">
                 <h2 class="section-title mb-0">Education</h2>
-                <button type="button" class="btn btn-outline-primary btn-modern" id="addEducationBtn">+ Add Education</button>
+                <button type="button" class="btn btn-outline-primary btn-modern" id="addEducationBtn" aria-label="Add a new education entry">+ Add Education</button>
               </div>
-              <div id="educationContainer"></div>
+              <div id="educationContainer" aria-live="polite"></div>
             </div>
           </section>
 
-          <section class="section" id="tab6">
+          <section class="section" id="tab6" role="tabpanel" aria-labelledby="btn-tab6" hidden>
             <div class="section-card">
               <div class="d-flex justify-content-between align-items-center mb-3">
                 <h2 class="section-title mb-0">Experience</h2>
-                <button type="button" class="btn btn-outline-primary btn-modern" id="addExperienceBtn">+ Add Experience</button>
+                <button type="button" class="btn btn-outline-primary btn-modern" id="addExperienceBtn" aria-label="Add a new experience entry">+ Add Experience</button>
               </div>
-              <div id="experienceContainer"></div>
+              <div id="experienceContainer" aria-live="polite"></div>
             </div>
           </section>
 
-          <section class="section" id="tab7">
+          <section class="section" id="tab7" role="tabpanel" aria-labelledby="btn-tab7" hidden>
             <div class="section-card">
               <h2 class="section-title">Certificates</h2>
               <div class="row g-3">
-                <div class="col-md-4"><label class="form-label">Certificate Name *</label><input required type="text" class="form-control"></div>
-                <div class="col-md-4"><label class="form-label">Issued By *</label><input required type="text" class="form-control"></div>
-                <div class="col-md-4"><label class="form-label">Upload File *</label><input required type="file" class="form-control"></div>
+                <div class="col-md-4"><label class="form-label" for="certificateName">Certificate Name <span class="required-mark">*</span></label><input id="certificateName" required aria-required="true" type="text" class="form-control"></div>
+                <div class="col-md-4"><label class="form-label" for="issuedBy">Issued By <span class="required-mark">*</span></label><input id="issuedBy" required aria-required="true" type="text" class="form-control"></div>
+                <div class="col-md-4"><label class="form-label" for="certificateFile">Upload File <span class="required-mark">*</span></label><input id="certificateFile" required aria-required="true" type="file" class="form-control"></div>
               </div>
             </div>
           </section>
 
-          <section class="section" id="tab8">
+          <section class="section" id="tab8" role="tabpanel" aria-labelledby="btn-tab8" hidden>
             <div class="section-card">
               <h2 class="section-title">Portfolio</h2>
               <div class="row g-3">
-                <div class="col-md-6"><label class="form-label">Website URL</label><input type="url" class="form-control" placeholder="https://"></div>
-                <div class="col-md-6"><label class="form-label">GitHub URL</label><input type="url" class="form-control" placeholder="https://github.com/username"></div>
-                <div class="col-md-6"><label class="form-label">LinkedIn URL</label><input type="url" class="form-control" placeholder="https://linkedin.com/in/username"></div>
-                <div class="col-md-6"><label class="form-label">Other Links</label><input type="url" class="form-control" placeholder="https://"></div>
+                <div class="col-md-6"><label class="form-label" for="websiteUrl">Website URL</label><input id="websiteUrl" type="url" class="form-control" placeholder="https://"></div>
+                <div class="col-md-6"><label class="form-label" for="githubUrl">GitHub URL</label><input id="githubUrl" type="url" class="form-control" placeholder="https://github.com/username"></div>
+                <div class="col-md-6"><label class="form-label" for="linkedinUrl">LinkedIn URL</label><input id="linkedinUrl" type="url" class="form-control" placeholder="https://linkedin.com/in/username"></div>
+                <div class="col-md-6"><label class="form-label" for="otherLinks">Other Links</label><input id="otherLinks" type="url" class="form-control" placeholder="https://"></div>
               </div>
             </div>
           </section>
@@ -371,29 +321,69 @@
     </div>
   </div>
 
-  <div class="sticky-actions">
+  <div class="sticky-actions" role="region" aria-label="Form actions">
     <div class="inner">
-      <button class="btn btn-outline-secondary btn-modern" type="button">Save Draft</button>
-      <button class="btn btn-outline-primary btn-modern" type="button" id="prevBtn">Previous</button>
-      <button class="btn btn-primary btn-modern" type="button" id="nextBtn">Next</button>
-      <button class="btn btn-success btn-modern" type="button" id="submitBtn">Submit Profile</button>
+      <button class="btn btn-outline-secondary btn-modern" type="button" aria-label="Save your profile as draft">Save Draft</button>
+      <button class="btn btn-outline-primary btn-modern" type="button" id="prevBtn" aria-label="Go to previous section">Previous</button>
+      <button class="btn btn-primary btn-modern" type="button" id="nextBtn" aria-label="Go to next section">Next</button>
+      <button class="btn btn-success btn-modern" type="button" id="submitBtn" aria-label="Submit profile">Submit Profile</button>
     </div>
   </div>
 
   <script>
     const tabs = ["tab1", "tab2", "tab3", "tab4", "tab5", "tab6", "tab7", "tab8"];
-    const tabButtons = document.querySelectorAll(".tab-btn");
+    const tabButtons = document.querySelectorAll("[role='tab']");
     let currentTabIndex = 0;
 
-    function openTab(event, tabName) {
-      tabs.forEach(tab => document.getElementById(tab).classList.remove("active"));
-      document.getElementById(tabName).classList.add("active");
-      tabButtons.forEach(btn => btn.classList.remove("active"));
-      if (event && event.currentTarget) event.currentTarget.classList.add("active");
-      else tabButtons[tabs.indexOf(tabName)].classList.add("active");
-      currentTabIndex = tabs.indexOf(tabName);
-      window.scrollTo({ top: 0, behavior: 'smooth' });
+    function setActiveTabByIndex(index) {
+      tabs.forEach((tabId, i) => {
+        const panel = document.getElementById(tabId);
+        const btn = document.getElementById(`btn-${tabId}`);
+        const isActive = i === index;
+        panel.classList.toggle("active", isActive);
+        panel.hidden = !isActive;
+        btn.classList.toggle("active", isActive);
+        btn.setAttribute("aria-selected", isActive ? "true" : "false");
+        btn.setAttribute("tabindex", isActive ? "0" : "-1");
+      });
+      currentTabIndex = index;
     }
+
+    function openTab(event, tabName) {
+      const index = tabs.indexOf(tabName);
+      if (index < 0) return;
+      setActiveTabByIndex(index);
+      if (event && event.currentTarget) event.currentTarget.focus();
+      window.scrollTo({ top: 0, behavior: "smooth" });
+    }
+
+    tabButtons.forEach((button, index) => {
+      button.addEventListener("keydown", (e) => {
+        if (e.key === "ArrowDown" || e.key === "ArrowRight") {
+          e.preventDefault();
+          const next = (index + 1) % tabButtons.length;
+          openTab(null, tabs[next]);
+          tabButtons[next].focus();
+        }
+        if (e.key === "ArrowUp" || e.key === "ArrowLeft") {
+          e.preventDefault();
+          const prev = (index - 1 + tabButtons.length) % tabButtons.length;
+          openTab(null, tabs[prev]);
+          tabButtons[prev].focus();
+        }
+        if (e.key === "Home") {
+          e.preventDefault();
+          openTab(null, tabs[0]);
+          tabButtons[0].focus();
+        }
+        if (e.key === "End") {
+          e.preventDefault();
+          const last = tabButtons.length - 1;
+          openTab(null, tabs[last]);
+          tabButtons[last].focus();
+        }
+      });
+    });
 
     document.getElementById("prevBtn").addEventListener("click", () => {
       if (currentTabIndex > 0) openTab(null, tabs[currentTabIndex - 1]);
@@ -418,100 +408,126 @@
     const skillsRequired = document.getElementById("skillsRequired");
 
     function syncSkillRequired() {
-      skillsRequired.value = skillsContainer.querySelectorAll('.chip').length ? 'ok' : '';
+      skillsRequired.value = skillsContainer.querySelectorAll(".chip").length ? "ok" : "";
     }
 
     function addSkill() {
       const value = skillInput.value.trim();
       if (!value) return;
-      const exists = [...skillsContainer.querySelectorAll('.chip span')].some(el => el.textContent.toLowerCase() === value.toLowerCase());
+      const exists = [...skillsContainer.querySelectorAll(".chip span")].some(el => el.textContent.toLowerCase() === value.toLowerCase());
       if (exists) {
-        skillInput.value = '';
+        skillInput.value = "";
         return;
       }
-      const chip = document.createElement('div');
-      chip.className = 'chip';
-      chip.innerHTML = `<span>${value}</span><button type="button" aria-label="Remove skill">&times;</button>`;
-      chip.querySelector('button').addEventListener('click', () => {
+      const chip = document.createElement("div");
+      chip.className = "chip";
+      chip.setAttribute("role", "listitem");
+      chip.innerHTML = `<span>${value}</span><button type="button" aria-label="Remove ${value} skill">&times;</button>`;
+      chip.querySelector("button").addEventListener("click", () => {
         chip.remove();
         syncSkillRequired();
       });
       skillsContainer.appendChild(chip);
-      skillInput.value = '';
+      skillInput.value = "";
       syncSkillRequired();
     }
 
     document.getElementById("addSkillBtn").addEventListener("click", addSkill);
     skillInput.addEventListener("keydown", e => {
-      if (e.key === 'Enter') {
+      if (e.key === "Enter") {
         e.preventDefault();
         addSkill();
       }
     });
 
     // Dynamic Education
-    const educationContainer = document.getElementById('educationContainer');
-    document.getElementById('addEducationBtn').addEventListener('click', () => {
-      const block = document.createElement('div');
-      block.className = 'repeat-card';
+    const educationContainer = document.getElementById("educationContainer");
+    let educationCount = 0;
+
+    function createEducationCard() {
+      educationCount += 1;
+      const block = document.createElement("fieldset");
+      block.className = "repeat-card";
+      block.setAttribute("aria-label", `Education entry ${educationCount}`);
       block.innerHTML = `
-        <div class="d-flex justify-content-between align-items-center mb-2"><strong>Education Details</strong><button type="button" class="btn btn-sm btn-outline-danger remove-btn">Remove</button></div>
+        <div class="d-flex justify-content-between align-items-center mb-2">
+          <legend class="h6 m-0">Education Details ${educationCount}</legend>
+          <button type="button" class="btn btn-sm btn-outline-danger remove-btn" aria-label="Remove education entry ${educationCount}">Remove</button>
+        </div>
         <div class="row g-3">
-          <div class="col-md-6"><label class="form-label">Degree *</label><input required type="text" class="form-control"></div>
-          <div class="col-md-6"><label class="form-label">University *</label><input required type="text" class="form-control"></div>
-          <div class="col-md-4"><label class="form-label">Start Year *</label><input required type="number" class="form-control" min="1950" max="2100"></div>
-          <div class="col-md-4"><label class="form-label">End Year *</label><input required type="number" class="form-control" min="1950" max="2100"></div>
-          <div class="col-md-4"><label class="form-label">Grade *</label><input required type="text" class="form-control"></div>
+          <div class="col-md-6"><label class="form-label" for="degree_${educationCount}">Degree <span class="required-mark">*</span></label><input id="degree_${educationCount}" required aria-required="true" type="text" class="form-control"></div>
+          <div class="col-md-6"><label class="form-label" for="university_${educationCount}">University <span class="required-mark">*</span></label><input id="university_${educationCount}" required aria-required="true" type="text" class="form-control"></div>
+          <div class="col-md-4"><label class="form-label" for="startYear_${educationCount}">Start Year <span class="required-mark">*</span></label><input id="startYear_${educationCount}" required aria-required="true" type="number" class="form-control" min="1950" max="2100"></div>
+          <div class="col-md-4"><label class="form-label" for="endYear_${educationCount}">End Year <span class="required-mark">*</span></label><input id="endYear_${educationCount}" required aria-required="true" type="number" class="form-control" min="1950" max="2100"></div>
+          <div class="col-md-4"><label class="form-label" for="grade_${educationCount}">Grade <span class="required-mark">*</span></label><input id="grade_${educationCount}" required aria-required="true" type="text" class="form-control"></div>
         </div>`;
-      block.querySelector('.remove-btn').addEventListener('click', () => block.remove());
+      block.querySelector(".remove-btn").addEventListener("click", () => block.remove());
       educationContainer.appendChild(block);
-    });
+    }
+
+    document.getElementById("addEducationBtn").addEventListener("click", createEducationCard);
 
     // Dynamic Experience
-    const experienceContainer = document.getElementById('experienceContainer');
-    document.getElementById('addExperienceBtn').addEventListener('click', () => {
-      const id = `currentWork_${Date.now()}`;
-      const block = document.createElement('div');
-      block.className = 'repeat-card';
-      block.innerHTML = `
-        <div class="d-flex justify-content-between align-items-center mb-2"><strong>Experience Details</strong><button type="button" class="btn btn-sm btn-outline-danger remove-btn">Remove</button></div>
-        <div class="row g-3">
-          <div class="col-md-6"><label class="form-label">Company *</label><input required type="text" class="form-control"></div>
-          <div class="col-md-6"><label class="form-label">Designation *</label><input required type="text" class="form-control"></div>
-          <div class="col-md-4"><label class="form-label">Start Date *</label><input required type="date" class="form-control"></div>
-          <div class="col-md-4"><label class="form-label">End Date</label><input type="date" class="form-control end-date"></div>
-          <div class="col-md-4 d-flex align-items-end"><div class="form-check mb-2"><input class="form-check-input current-working" type="checkbox" id="${id}"><label class="form-check-label" for="${id}">Current Working</label></div></div>
-          <div class="col-12"><label class="form-label">Responsibilities *</label><textarea required class="form-control" rows="3"></textarea></div>
-        </div>`;
-      const currentCheck = block.querySelector('.current-working');
-      const endDate = block.querySelector('.end-date');
-      currentCheck.addEventListener('change', () => {
-        endDate.disabled = currentCheck.checked;
-        if (currentCheck.checked) endDate.value = '';
-      });
-      block.querySelector('.remove-btn').addEventListener('click', () => block.remove());
-      experienceContainer.appendChild(block);
-    });
+    const experienceContainer = document.getElementById("experienceContainer");
+    let experienceCount = 0;
 
-    // initialize one default repeat card
-    document.getElementById('addEducationBtn').click();
-    document.getElementById('addExperienceBtn').click();
+    function createExperienceCard() {
+      experienceCount += 1;
+      const id = `currentWork_${Date.now()}_${experienceCount}`;
+      const block = document.createElement("fieldset");
+      block.className = "repeat-card";
+      block.setAttribute("aria-label", `Experience entry ${experienceCount}`);
+      block.innerHTML = `
+        <div class="d-flex justify-content-between align-items-center mb-2">
+          <legend class="h6 m-0">Experience Details ${experienceCount}</legend>
+          <button type="button" class="btn btn-sm btn-outline-danger remove-btn" aria-label="Remove experience entry ${experienceCount}">Remove</button>
+        </div>
+        <div class="row g-3">
+          <div class="col-md-6"><label class="form-label" for="company_${experienceCount}">Company <span class="required-mark">*</span></label><input id="company_${experienceCount}" required aria-required="true" type="text" class="form-control"></div>
+          <div class="col-md-6"><label class="form-label" for="designation_${experienceCount}">Designation <span class="required-mark">*</span></label><input id="designation_${experienceCount}" required aria-required="true" type="text" class="form-control"></div>
+          <div class="col-md-4"><label class="form-label" for="startDate_${experienceCount}">Start Date <span class="required-mark">*</span></label><input id="startDate_${experienceCount}" required aria-required="true" type="date" class="form-control"></div>
+          <div class="col-md-4"><label class="form-label" for="endDate_${experienceCount}">End Date</label><input id="endDate_${experienceCount}" type="date" class="form-control end-date"></div>
+          <div class="col-md-4 d-flex align-items-end"><div class="form-check mb-2"><input class="form-check-input current-working" type="checkbox" id="${id}"><label class="form-check-label" for="${id}">Current Working</label></div></div>
+          <div class="col-12"><label class="form-label" for="responsibilities_${experienceCount}">Responsibilities <span class="required-mark">*</span></label><textarea id="responsibilities_${experienceCount}" required aria-required="true" class="form-control" rows="3"></textarea></div>
+        </div>`;
+      const currentCheck = block.querySelector(".current-working");
+      const endDate = block.querySelector(".end-date");
+      currentCheck.addEventListener("change", () => {
+        endDate.disabled = currentCheck.checked;
+        endDate.setAttribute("aria-disabled", currentCheck.checked ? "true" : "false");
+        if (currentCheck.checked) endDate.value = "";
+      });
+      block.querySelector(".remove-btn").addEventListener("click", () => block.remove());
+      experienceContainer.appendChild(block);
+    }
+
+    document.getElementById("addExperienceBtn").addEventListener("click", createExperienceCard);
+
+    // initialize
+    createEducationCard();
+    createExperienceCard();
 
     // Form validation
-    document.getElementById('submitBtn').addEventListener('click', () => {
+    document.getElementById("submitBtn").addEventListener("click", () => {
       syncSkillRequired();
-      const form = document.getElementById('profileForm');
+      const form = document.getElementById("profileForm");
+      const feedback = document.getElementById("formFeedback");
+
       if (!form.checkValidity()) {
-        form.classList.add('was-validated');
-        const firstInvalid = form.querySelector(':invalid');
+        form.classList.add("was-validated");
+        const firstInvalid = form.querySelector(":invalid");
+        feedback.classList.remove("d-none");
+        feedback.textContent = "Please fill all required fields in the current profile before submitting.";
         if (firstInvalid) {
-          const section = firstInvalid.closest('.section');
+          const section = firstInvalid.closest(".section");
           if (section) openTab(null, section.id);
           firstInvalid.focus();
         }
         return;
       }
-      alert('Profile submitted successfully!');
+
+      feedback.classList.add("d-none");
+      alert("Profile submitted successfully!");
     });
   </script>
 </body>
