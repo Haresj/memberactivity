@@ -1,0 +1,53 @@
+@model memberactivity.ViewModels.Education.EducationFormViewModel
+@{
+    ViewData["Title"] = "Education Configuration";
+}
+
+<div class="card shadow-sm education-card">
+    <div class="card-header bg-primary text-white">
+        <h1 class="h4 mb-0">Education Configuration</h1>
+    </div>
+    <div class="card-body">
+        @if (TempData["SuccessMessage"] is string successMessage)
+        {
+            <div class="alert alert-success" role="alert">@successMessage</div>
+        }
+
+        <form asp-controller="Education" asp-action="EducationForm" method="post" id="educationForm" novalidate>
+            @Html.AntiForgeryToken()
+            <div asp-validation-summary="ModelOnly" class="text-danger mb-3"></div>
+
+            <div class="row g-3 mb-4">
+                <div class="col-12 col-md-6">
+                    <label asp-for="EducationLevelId" class="form-label">Education Level <span class="text-danger">*</span></label>
+                    <select asp-for="EducationLevelId"
+                            asp-items="@(new SelectList(Model.EducationLevels, nameof(EducationLevelOptionViewModel.EducationLevelId), nameof(EducationLevelOptionViewModel.Name)))"
+                            class="form-select"
+                            data-fields-url="@Url.Action("Fields", "Education")"
+                            data-val="true"
+                            data-val-required="Education Level is required.">
+                        <option value="">-- Select Education Level --</option>
+                    </select>
+                    <span asp-validation-for="EducationLevelId" class="text-danger"></span>
+                </div>
+            </div>
+
+            <div id="educationFields" class="row g-3">
+                @* Dynamic field rendering is intentionally configuration-driven: each row comes from EducationFieldConfiguration. *@
+                @foreach (var field in Model.Fields)
+                {
+                    <partial name="_DynamicField" model="field" />
+                }
+            </div>
+
+            <div class="d-flex gap-2 mt-4">
+                <button type="submit" class="btn btn-primary">Save Education</button>
+                <a asp-controller="Home" asp-action="Index" class="btn btn-outline-secondary">Cancel</a>
+            </div>
+        </form>
+    </div>
+</div>
+
+@section Scripts {
+    <script src="~/js/education-form.js" asp-append-version="true"></script>
+}

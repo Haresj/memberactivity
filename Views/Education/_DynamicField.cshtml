@@ -1,0 +1,119 @@
+@model memberactivity.ViewModels.Education.DynamicEducationFieldViewModel
+@{
+    var value = Model.Value ?? string.Empty;
+    var isReadonly = !Model.IsEditable;
+    var controlType = Model.ControlType?.ToLowerInvariant() ?? "text";
+    var validationAttributes = new Dictionary<string, string>
+    {
+        ["data-val"] = "true"
+    };
+
+    if (Model.IsRequired)
+    {
+        validationAttributes["data-val-required"] = Model.RequiredMessage;
+    }
+
+    if (!string.IsNullOrWhiteSpace(Model.RegexPattern))
+    {
+        validationAttributes["data-val-regex"] = Model.RegexMessage ?? $"{Model.DisplayName} is not in a valid format.";
+        validationAttributes["data-val-regex-pattern"] = Model.RegexPattern!;
+    }
+
+    if (Model.MinLength.HasValue)
+    {
+        validationAttributes["data-val-minlength"] = Model.MinLengthMessage ?? $"{Model.DisplayName} must be at least {Model.MinLength} characters.";
+        validationAttributes["data-val-minlength-min"] = Model.MinLength.Value.ToString(System.Globalization.CultureInfo.InvariantCulture);
+    }
+
+    if (Model.MaxLength.HasValue)
+    {
+        validationAttributes["data-val-maxlength"] = Model.MaxLengthMessage ?? $"{Model.DisplayName} must be no more than {Model.MaxLength} characters.";
+        validationAttributes["data-val-maxlength-max"] = Model.MaxLength.Value.ToString(System.Globalization.CultureInfo.InvariantCulture);
+    }
+
+    var validationAttributeText = string.Join(" ", validationAttributes.Select(attribute =>
+        $"{attribute.Key}=\"{System.Text.Encodings.Web.HtmlEncoder.Default.Encode(attribute.Value)}\""));
+}
+
+@if (Model.IsVisible)
+{
+    <div class="col-12 col-md-6 education-field" data-field-name="@Model.FieldName" data-control-type="@Model.ControlType">
+        <label for="@Model.InputId" class="form-label">
+            @Model.DisplayName
+            @if (Model.IsRequired)
+            {
+                <span class="text-danger">*</span>
+            }
+        </label>
+
+        @* The generated name uses dictionary binding, so server-side ModelState keys align with dynamic DB FieldName values. *@
+        @switch (controlType)
+        {
+            case "textarea":
+                <textarea id="@Model.InputId"
+                          name="@Model.InputName"
+                          class="form-control"
+                          placeholder="@Model.Placeholder"
+                          readonly="@(isReadonly ? "readonly" : null)"
+                          rows="4"
+                          @Html.Raw(validationAttributeText)>@value</textarea>
+                break;
+            case "date":
+                <input id="@Model.InputId"
+                       name="@Model.InputName"
+                       type="date"
+                       class="form-control"
+                       value="@value"
+                       placeholder="@Model.Placeholder"
+                       readonly="@(isReadonly ? "readonly" : null)"
+                       @Html.Raw(validationAttributeText) />
+                break;
+            case "dropdown":
+                <select id="@Model.InputId"
+                        name="@Model.InputName"
+                        class="form-select"
+                        disabled="@(isReadonly ? "disabled" : null)"
+                        @Html.Raw(validationAttributeText)>
+                    <option value="">@(!string.IsNullOrWhiteSpace(Model.Placeholder) ? Model.Placeholder : "-- Select --")</option>
+                    @if (!string.IsNullOrWhiteSpace(value))
+                    {
+                        <option value="@value" selected>@value</option>
+                    }
+                </select>
+                @if (isReadonly)
+                {
+                    <input type="hidden" name="@Model.InputName" value="@value" />
+                }
+                break;
+            case "autocomplete":
+                <input id="@Model.InputId"
+                       name="@Model.InputName"
+                       type="text"
+                       class="form-control"
+                       value="@value"
+                       placeholder="@Model.Placeholder"
+                       list="@($"{Model.InputId}_options")"
+                       readonly="@(isReadonly ? "readonly" : null)"
+                       @Html.Raw(validationAttributeText) />
+                <datalist id="@($"{Model.InputId}_options")">
+                    @if (!string.IsNullOrWhiteSpace(Model.DefaultValue))
+                    {
+                        <option value="@Model.DefaultValue"></option>
+                    }
+                </datalist>
+                break;
+            default:
+                <input id="@Model.InputId"
+                       name="@Model.InputName"
+                       type="text"
+                       class="form-control"
+                       value="@value"
+                       placeholder="@Model.Placeholder"
+                       readonly="@(isReadonly ? "readonly" : null)"
+                       @Html.Raw(validationAttributeText) />
+                break;
+        }
+
+        <span class="text-danger field-validation-valid" data-valmsg-for="@Model.InputName" data-valmsg-replace="true"></span>
+    </div>
+}

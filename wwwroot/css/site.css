@@ -1,74 +1,43 @@
-body {
-  font-family: Arial, sans-serif;
-  background: #f5f7fb;
-  margin: 0;
-  color: #1f2937;
+:root {
+    --brand-color: #0d6efd;
 }
 
-.container {
-  width: min(1000px, 92%);
-  margin: 0 auto;
+body {
+    background-color: #f7f9fc;
+}
+
+header {
+    background: #fff;
+    border-bottom: 1px solid #e5e7eb;
+    margin-bottom: 2rem;
 }
 
 .nav {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  padding: 1rem 0;
+    align-items: center;
+    display: flex;
+    gap: 1rem;
+    justify-content: space-between;
+    min-height: 4rem;
 }
 
 .brand {
-  text-decoration: none;
-  color: #111827;
-  font-weight: 700;
+    color: var(--brand-color);
+    font-weight: 700;
+    text-decoration: none;
 }
 
-main.container {
-  padding: 1.5rem 0 2rem;
+.nav-link {
+    color: #374151;
+    font-weight: 600;
+    text-decoration: none;
 }
 
-.card {
-  background: #fff;
-  border-radius: 12px;
-  padding: 1.25rem;
-  margin-bottom: 1rem;
-  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.08);
+.education-card {
+    border: 0;
+    margin-bottom: 2rem;
 }
 
-.auth-card {
-  max-width: 420px;
-  margin: 80px auto;
-  text-align: center;
-}
-
-button, .google-btn {
-  border: 0;
-  border-radius: 8px;
-  padding: 0.7rem 1.1rem;
-  background: #111827;
-  color: #fff;
-  cursor: pointer;
-  text-decoration: none;
-  font-size: 1rem;
-}
-
-.google-btn {
-  background: #1a73e8;
-}
-
-table {
-  width: 100%;
-  border-collapse: collapse;
-}
-
-th, td {
-  border-bottom: 1px solid #e5e7eb;
-  text-align: left;
-  padding: 0.5rem;
-  vertical-align: top;
-}
-
-code {
-  word-break: break-all;
-  white-space: pre-wrap;
+.field-validation-error,
+.validation-summary-errors {
+    color: #dc3545;
 }
