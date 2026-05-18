@@ -1,0 +1,6 @@
+@model IReadOnlyList<memberactivity.ViewModels.Education.DynamicEducationFieldViewModel>
+
+@foreach (var field in Model)
+{
+    <partial name="_DynamicField" model="field" />
+}

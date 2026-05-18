@@ -1,6 +1,10 @@
 using System.IdentityModel.Tokens.Jwt;
 using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Authentication.OpenIdConnect;
+using memberactivity.Data;
+using memberactivity.Data.Repositories;
+using memberactivity.Services;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Protocols.OpenIdConnect;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -8,6 +12,12 @@ var builder = WebApplication.CreateBuilder(args);
 JwtSecurityTokenHandler.DefaultMapInboundClaims = false;
 
 builder.Services.AddControllersWithViews();
+
+builder.Services.AddDbContext<ApplicationDbContext>(options =>
+    options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")));
+
+builder.Services.AddScoped<IEducationConfigurationRepository, EducationConfigurationRepository>();
+builder.Services.AddScoped<IEducationConfigurationService, EducationConfigurationService>();
 
 builder.Services
     .AddAuthentication(options =>

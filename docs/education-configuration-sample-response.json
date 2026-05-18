@@ -1,0 +1,41 @@
+{
+  "educationLevelId": 4,
+  "fields": [
+    {
+      "fieldName": "AreaOfStudy",
+      "displayName": "Area of Study",
+      "controlType": "text",
+      "isVisible": true,
+      "isRequired": true,
+      "isEditable": true,
+      "defaultValue": null,
+      "placeholder": "Example: Computer Science",
+      "requiredMessage": "Area of Study is required.",
+      "regexPattern": null,
+      "regexMessage": null,
+      "minLength": null,
+      "minLengthMessage": null,
+      "maxLength": 150,
+      "maxLengthMessage": "Area of Study cannot exceed 150 characters.",
+      "displayOrder": 1
+    },
+    {
+      "fieldName": "DegreeCertificateLicense",
+      "displayName": "Degree / Certificate / License",
+      "controlType": "autocomplete",
+      "isVisible": true,
+      "isRequired": true,
+      "isEditable": true,
+      "defaultValue": "Bachelor Degree",
+      "placeholder": "Example: Bachelor Degree",
+      "requiredMessage": "Degree / Certificate / License is required.",
+      "regexPattern": null,
+      "regexMessage": null,
+      "minLength": null,
+      "minLengthMessage": null,
+      "maxLength": 200,
+      "maxLengthMessage": "Degree / Certificate / License cannot exceed 200 characters.",
+      "displayOrder": 2
+    }
+  ]
+}
